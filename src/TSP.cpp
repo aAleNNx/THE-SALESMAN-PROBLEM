@@ -120,23 +120,13 @@ cost_t CostMatrix::reduce_cols() {
  * @return The sum of minimal values in row and col, excluding the intersection value.
  */
 cost_t CostMatrix::get_vertex_cost(std::size_t row, std::size_t col) const {
-    cost_t Min_val_in_row;
-    cost_t Min_val_in_col;
-
-    for (std::size_t c = 0; c < matrix_.size(); c++){
-        if (Min_val_in_row < matrix_[row][c] and c != col and matrix_[row][c] != INF){
-            Min_val_in_row = matrix_[row][c];
-            }
-        }
-
-
-    for (std::size_t r = 0; r < matrix_.size(); r++){
-        if (Min_val_in_row < matrix_[r][col] and r != row and matrix_[r][col] != INF){
-                Min_val_in_row = matrix_[r][col];
-            }
-        }
-
-    return (Min_val_in_row + Min_val_in_col);
+    CostMatrix Matrix = *this;
+    Matrix[row][col] = INF;
+    std::vector<cost_t> min_vals_in_rows = Matrix.get_min_values_in_rows();
+    std::vector<cost_t> min_vals_in_cols = Matrix.get_min_values_in_cols();
+    cost_t min_row = min_vals_in_rows[row];
+    cost_t min_col = min_vals_in_cols[col];
+    return min_row + min_col;
 
 }
 
