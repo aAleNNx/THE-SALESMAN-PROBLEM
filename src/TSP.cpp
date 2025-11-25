@@ -57,7 +57,9 @@ cost_t CostMatrix::reduce_rows() {
     std::vector<cost_t> min_values = CostMatrix::get_min_values_in_rows();
     for (std::size_t r = 0; r < matrix_.size(); r++){
         for (std::size_t c = 0; c < matrix_.size(); c++){
+            if (matrix_[r][c] != INF){
                 matrix_[r][c] = matrix_[r][c] - min_values[r];
+                }
             }
         }
     cost_t sum_of_elems;
@@ -99,7 +101,9 @@ cost_t CostMatrix::reduce_cols() {
     std::vector<cost_t> min_values = CostMatrix::get_min_values_in_cols();
     for (std::size_t c = 0; c < matrix_.size(); c++){
         for (std::size_t r = 0; r < matrix_.size(); r++){
+            if (matrix_[r][c] != INF){
                 matrix_[r][c] = matrix_[r][c] - min_values[c];
+            }
             }
         }
     cost_t sum_of_elems;

@@ -18,13 +18,13 @@ int main() {
      * 32 : 1 4 3 2 0
      */
 
-//    cost_matrix_t cm {
+//   cost_matrix_t cm {
 //            {INF, 12,   3,  45,   6},
-//            {78, INF,  90,  21,   3},
-//            { 5,  56, INF,  23,  98},
-//            {12,   6,   8, INF,  34},
-//            { 3,  98,   3,   2, INF}
-//    };
+//      {78, INF,  90,  21,   3},
+//      { 5,  56, INF,  23,  98},
+//      {12,   6,   8, INF,  34},
+//      { 3,  98,   3,   2, INF}
+//   };
 
     /* Rozwiązanie:
      * 30 : 4 3 2 0 1
@@ -37,35 +37,38 @@ int main() {
 //            {2,  6,  5,  INF,  6},
 //            {7,  3,  8,  6,  INF},
 //    };
-
     /* Rozwiązania:
-     * 19 : 4 3 0 2 1
-     * 19 : 1 2 0 3 4
+    * 19 : 4 3 0 2 1
+    * 19 : 1 2 0 3 4
+    *
     */
-    CostMatrix MACIERZ = CostMatrix(cm);
 
-    std::size_t SIZE_MACIERZ = MACIERZ.size();
+   CostMatrix MACIERZ = CostMatrix(cm);
 
-    std::vector<cost_t> MIN_VALS_ROWS = MACIERZ.get_min_values_in_rows();
+   std::size_t SIZE_MACIERZ = MACIERZ.size();
+   std::vector<cost_t> MIN_VALS_ROWS = MACIERZ.get_min_values_in_rows();
 
-    for(auto& i : MIN_VALS_ROWS){
+   for(auto& i : MIN_VALS_ROWS){
         std::cout << i;
     };
-    std::cout << std::endl;
+   std::cout << std::endl;
 
-    std::cout << MACIERZ << std::endl;
+   std::cout << MACIERZ << std::endl;
 
-    tsp_solutions_t solutions = solve_tsp(cm);
+   cost_t sum_of_elems_of_rows = MACIERZ.reduce_rows();
+   std::cout << MACIERZ << std::endl;
 
+   cost_t sum_of_elems_of_cols = MACIERZ.reduce_cols();
+   std::cout << MACIERZ << std::endl;
 
+   tsp_solutions_t solutions = solve_tsp(cm);
 
-
-    for (auto elem : solutions) {
-        std::cout << elem.lower_bound << " : ";
-        for (auto pelem : elem.path) {
-            std::cout << pelem << " ";
-        }
-        std::cout << "\n";
+   for (auto elem : solutions) {
+       std::cout << elem.lower_bound << " : ";
+       for (auto pelem : elem.path) {
+           std::cout << pelem << " ";
+       }
+       std::cout << "\n";
     }
 
     return EXIT_SUCCESS;
