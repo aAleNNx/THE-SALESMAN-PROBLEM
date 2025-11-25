@@ -62,9 +62,9 @@ cost_t CostMatrix::reduce_rows() {
                 }
             }
         }
-    cost_t sum_of_elems;
-    for(std::vector<int>::iterator it = min_values.begin(); it != min_values.end(); ++it){
-        sum_of_elems += *it;
+    cost_t sum_of_elems = 0;
+    for(const auto& elem : min_values){
+        sum_of_elems += elem;
     }
 
     return sum_of_elems;
@@ -106,9 +106,9 @@ cost_t CostMatrix::reduce_cols() {
             }
             }
         }
-    cost_t sum_of_elems;
-    for(std::vector<int>::iterator it = min_values.begin(); it != min_values.end(); ++it){
-        sum_of_elems += *it;
+    cost_t sum_of_elems = 0;
+    for(const auto& elem : min_values){
+        sum_of_elems += elem;
     }
     return sum_of_elems;
 }
@@ -120,10 +120,24 @@ cost_t CostMatrix::reduce_cols() {
  * @return The sum of minimal values in row and col, excluding the intersection value.
  */
 cost_t CostMatrix::get_vertex_cost(std::size_t row, std::size_t col) const {
-    
-    
-    
-    throw;  // TODO: Implement it!
+    cost_t Min_val_in_row;
+    cost_t Min_val_in_col;
+
+    for (std::size_t c = 0; c < matrix_.size(); c++){
+        if (Min_val_in_row < matrix_[row][c] and c != col and matrix_[row][c] != INF){
+            Min_val_in_row = matrix_[row][c];
+            }
+        }
+
+
+    for (std::size_t r = 0; r < matrix_.size(); r++){
+        if (Min_val_in_row < matrix_[r][col] and r != row and matrix_[r][col] != INF){
+                Min_val_in_row = matrix_[r][col];
+            }
+        }
+
+    return (Min_val_in_row + Min_val_in_col);
+
 }
 
 /* PART 2 */
