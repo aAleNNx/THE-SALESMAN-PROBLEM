@@ -162,7 +162,13 @@ NewVertex StageState::choose_new_vertex() {
  * @param new_vertex
  */
 void StageState::update_cost_matrix(vertex_t new_vertex) {
-    throw;  // TODO: Implement it!
+    for(std::size_t r = 0; r < matrix_.size(); r++){
+        matrix_[r][new_vertex.col] = INF;
+    }
+
+    for(std::size_t c = 0; c < matrix_.size(); c++) {
+        matrix_[new_vertex.row][c] = INF;
+    }
 }
 
 /**
