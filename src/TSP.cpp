@@ -176,7 +176,9 @@ void StageState::update_cost_matrix(vertex_t new_vertex) {
  * @return The sum of reduced values.
  */
 cost_t StageState::reduce_cost_matrix() {
-    throw;  // TODO: Implement it!
+    cost_t sum_rows = matrix_.reduce_rows();
+    cost_t sum_cols = matrix_.reduce_cols();
+    return sum_rows + sum_cols;
 }
 
 /**
