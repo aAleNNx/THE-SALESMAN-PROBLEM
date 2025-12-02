@@ -2,13 +2,14 @@
 
 #include <algorithm>
 #include <stack>
+#include <iomanip>
 #include <optional>
 
 std::ostream& operator<<(std::ostream& os, const CostMatrix& cm) {
     for (std::size_t r = 0; r < cm.size(); ++r) {
         for (std::size_t c = 0; c < cm.size(); ++c) {
             const auto& elem = cm[r][c];
-            os << (is_inf(elem) ? "INF" : std::to_string(elem)) << " ";
+            os << std::setw(3) << (is_inf(elem) ? "INF" : std::to_string(elem)) << " ";
         }
         os << "\n";
     }
@@ -141,7 +142,19 @@ cost_t CostMatrix::get_vertex_cost(std::size_t row, std::size_t col) const {
  * @return The coordinates of the next vertex.
  */
 NewVertex StageState::choose_new_vertex() {
-    throw;  // TODO: Implement it!
+    vertex_t pair_with_max_cost;
+    cost_t max_val = -1;
+
+    for(std::size_t r = 0; r<matrix_.size(); r++){
+        for(std::size_t c = 0; c<matrix_.size(); c++){
+            cost_t current_cost = matrix_.get_vertex_cost(r,c);
+            if(matrix_[r][c] == 0 && current_cost > max_val){
+                max_val = current_cost;
+                pair_with_max_cost = vertex_t(r,c);
+            }
+        }
+    }
+    return NewVertex(pair_with_max_cost, max_val);
 }
 
 /**
