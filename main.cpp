@@ -43,40 +43,6 @@ int main() {
     *
     */
 
-    CostMatrix MACIERZ = CostMatrix(cm);
-
-    std::size_t SIZE_MACIERZ = MACIERZ.size();
-    std::vector<cost_t> MIN_VALS_ROWS = MACIERZ.get_min_values_in_rows();
-
-
-    for(auto& i : MIN_VALS_ROWS){
-        std::cout << i;
-    };
-    std::cout << std::endl;
-
-    std::cout << MACIERZ << std::endl;
-    std::cout << MACIERZ.get_vertex_cost(0,1) << std::endl;
-
-    cost_t sum_of_elems_of_rows = MACIERZ.reduce_rows();
-    std::cout << MACIERZ << std::endl;
-
-    std::vector<cost_t> MIN_VALS_COLS = MACIERZ.get_min_values_in_cols();
-
-    cost_t sum_of_elems_of_cols = MACIERZ.reduce_cols();
-    std::cout << MACIERZ << std::endl;
-
-    std::cout << sum_of_elems_of_rows << std::endl << sum_of_elems_of_cols << std::endl;
-
-    for(auto& i : MIN_VALS_ROWS){
-        std::cout << i << ' ';
-    };
-    std::cout << std::endl;
-
-    for(auto& i : MIN_VALS_COLS){
-        std::cout << i << ' ';
-    };
-    std::cout << std::endl;
-
     tsp_solutions_t solutions = solve_tsp(cm);
 
     for (auto elem : solutions) {
